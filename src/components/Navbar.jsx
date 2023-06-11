@@ -3,12 +3,12 @@ import { AiOutlineSearch } from 'react-icons/ai';
 const Navbar = () => {
     return (
         <div>
-            <div className='bg-MainBackground flex-col md:flex md:flex-row justify-center text-center p-5 text-xl items-center md:justify-between space-y-3 md:space-y-0'>
+            <div className='bg-MainBackground flex-col md:flex md:flex-row justify-center text-center px-5 text-xl items-center md:justify-between space-y-3 md:space-y-0 mx-auto sm:px-10 md:px-14 lg:px-56'>
                 <p className='text-MainForground'>
                     وب اپلیکیشن مدیریت{' '}
                     <span className='text-MainPurple'>مخاطبین</span>
                 </p>
-                <div className='relative flex mx-auto md:mx-0 sm:w-1/3 w-1/2'>
+                <div className='relative flex mx-auto md:mx-0 sm:w-1/2 w-1/2'>
                     <input
                         type='text'
                         name=''

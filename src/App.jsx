@@ -1,9 +1,10 @@
-import Navbar from './components/Navbar';
+import { Navbar, Contacts } from './components';
 
 function App() {
     return (
         <div className='App'>
             <Navbar />
+            <Contacts />
         </div>
     );
 }
