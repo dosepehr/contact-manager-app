@@ -7,6 +7,11 @@ export const getContacts = () => {
     return axios.get(url);
 };
 
+export const getContact = (id) => {
+    const url = `${BASE_URL}/${id}`;
+    return axios.get(url);
+};
+
 export const postContact = (data) => {
     const url = `${BASE_URL}`;
     return axios.post(url, data);
