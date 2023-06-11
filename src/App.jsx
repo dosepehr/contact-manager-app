@@ -1,13 +1,13 @@
-import { Navbar, Contacts } from './components';
+import { Outlet } from 'react-router-dom';
+import { Navbar } from './components';
 
 function App() {
     return (
-        <div className='App'>
+        <>
             <Navbar />
-            <Contacts />
-        </div>
+            <Outlet />
+        </>
     );
 }
 
 export default App;
-
