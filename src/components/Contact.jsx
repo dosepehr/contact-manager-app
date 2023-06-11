@@ -3,7 +3,9 @@ import { BiEditAlt } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import { ToastContainer, toast } from 'react-toastify';
 import { deleteContact } from '../services/contactServices';
-const Contact = ({ name, mobile, email, photo, id }) => {
+import { Link } from 'react-router-dom';
+const Contact = ({ contact }) => {
+    const { name, mobile, email, photo, id } = contact;
     const handleDelete = async (id) => {
         try {
             const { status } = await deleteContact(id);
@@ -21,7 +23,7 @@ const Contact = ({ name, mobile, email, photo, id }) => {
                     <img
                         src={photo || `default.png`}
                         alt=''
-                        className='border border-MainPurple rounded-lg max-w-[150px]'
+                        className='border border-MainPurple rounded-lg max-w-[150px] aspect-square'
                     />
                     <ToastContainer
                         position='top-right'
@@ -53,9 +55,9 @@ const Contact = ({ name, mobile, email, photo, id }) => {
                             </div>
                         </div>
                         <div className='flex flex-col space-y-2 mr-2'>
-                            <button className='bg-MainOrange p-3 rounded-md'>
+                            <Link className='bg-MainOrange p-3 rounded-md' to={`/contact/${id}`} >
                                 <AiOutlineEye />
-                            </button>
+                            </Link>
                             <button className='bg-MainCyan p-3 rounded-md'>
                                 <BiEditAlt />
                             </button>

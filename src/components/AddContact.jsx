@@ -41,11 +41,11 @@ const AddContact = () => {
     return (
         <div className='mx-auto sm:px-10 md:px-14 lg:px-28 relative'>
             <img
-                src='man-taking-note.png'
+                src='/man-taking-note.png'
                 className='absolute z-[-1] opacity-40 left-0 max-w-3xl'
                 alt=''
             />
-            <p className='text-MainGreen text-xl text-center '>
+            <p className='text-MainGreen text-xl text-center font-bold'>
                 ساخت مخاطب جدید
             </p>
             <div className='px-10 md:w-1/2 xl:w-1/3 mt-10 '>
