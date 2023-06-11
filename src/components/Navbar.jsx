@@ -3,7 +3,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 const Navbar = () => {
     return (
         <div className='bg-MainBackground flex-col md:flex md:flex-row justify-center text-center p-5 text-xl items-center md:justify-between space-y-3 md:space-y-0 mx-auto sm:px-10 md:px-14 lg:px-56'>
-            <p className='text-MainForground'>
+            <p className='text-MainForground mx-auto'>
                 وب اپلیکیشن مدیریت{' '}
                 <span className='text-MainPurple'>مخاطبین</span>
             </p>

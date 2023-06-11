@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import { Contacts } from '../components';
+import { AddContact, Contacts } from '../components';
 
 const router = createBrowserRouter([
     {
@@ -11,10 +11,12 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Contacts />,
             },
+            {
+                path: 'create-contact',
+                element: <AddContact />,
+            },
         ],
     },
 ]);
 
-
-
-export default router
+export default router;
