@@ -1,6 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import contactsSchema from '../validations/contactsSchema';
+import { postContact } from '../services/contactServices';
+import { useNavigate } from 'react-router-dom';
 const AddContact = () => {
+    const navigate = useNavigate();
     const groups = [
         {
             id: '1',
@@ -23,6 +26,16 @@ const AddContact = () => {
             name: 'آشنا',
         },
     ];
+    const createContact = async (newContact) => {
+        try {
+            const { status } = await postContact(newContact);
+            if (status === 201) {
+                navigate('/')
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <div className='mx-auto sm:px-10 md:px-14 lg:px-28 relative'>
             <img
@@ -44,7 +57,7 @@ const AddContact = () => {
                         group: '',
                     }}
                     onSubmit={(values) => {
-                        console.log(values);
+                        createContact(values);
                     }}
                     validationSchema={contactsSchema}
                 >
