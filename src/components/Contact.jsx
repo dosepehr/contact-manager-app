@@ -1,13 +1,15 @@
 import { AiOutlineEye } from 'react-icons/ai';
 import { BiEditAlt } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
+import { ToastContainer, toast } from 'react-toastify';
 import { deleteContact } from '../services/contactServices';
 const Contact = ({ name, mobile, email, photo, id }) => {
     const handleDelete = async (id) => {
         try {
-            const { data, status } = await deleteContact(id);
-            console.log({ data });
-            console.log({ status });
+            const { status } = await deleteContact(id);
+            if (status === 200) {
+                toast.success(`مخاطب ${name} با موفقیت حذف شد 🚀`);
+            }
         } catch (err) {
             console.log(err);
         }
@@ -20,6 +22,18 @@ const Contact = ({ name, mobile, email, photo, id }) => {
                         src={photo || `default.png`}
                         alt=''
                         className='border border-MainPurple rounded-lg max-w-[150px]'
+                    />
+                    <ToastContainer
+                        position='top-right'
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme='dark'
                     />
                     <div className='flex w-full justify-center '>
                         <div className='flex flex-col rounded-lg border border-MainPurple w-full max-w-[300px]'>

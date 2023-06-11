@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import contactsSchema from '../validations/contactsSchema';
 import { postContact } from '../services/contactServices';
 import { useNavigate } from 'react-router-dom';
+import {toast } from 'react-toastify';
 const AddContact = () => {
     const navigate = useNavigate();
     const groups = [
@@ -30,7 +31,8 @@ const AddContact = () => {
         try {
             const { status } = await postContact(newContact);
             if (status === 201) {
-                navigate('/')
+                navigate('/');
+                toast.success(`مخاطب افزوده شد!`);
             }
         } catch (err) {
             console.log(err);
@@ -82,7 +84,7 @@ const AddContact = () => {
                         </span>
                         <Field
                             name='mobile'
-                            type='text'
+                            type='number'
                             placeholder='شماره موبایل'
                             className='placeholder:text-white w-full rounded-md bg-MainCurrentline border border-MainPurple p-2 text-white'
                         />
