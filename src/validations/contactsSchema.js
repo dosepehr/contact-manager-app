@@ -1,16 +1,15 @@
 import * as yup from 'yup';
 
-const contactsSchema = yup.object({
+const contactsSchema = yup.object().shape({
     name: yup
         .string()
         .required('نام الزامی میباشد')
         .min(3, 'نام نمیتواند کمتر از 3 حرف باشد'),
-    photo: yup.url('آدرس معتبر نیست').required('آدرس عکس الزامی میباشد'),
-    mobile: yup
-        .number()
-        .required('شماره موبایل الزامی میباشد')
-        .min(5, 'شماره موبایل نمیتواند کمتر از 11 عدد باشد')
-        .max(5, 'شماره موبایل نمیتواند بیشتر از 11 عدد باشد'),
+    photo: yup
+        .string()
+        .url('آدرس معتبر نیست')
+        .required('تصویر مخاطب الزامی می باشد'),
+    mobile: yup.number().required('شماره موبایل الزامی میباشد'),
     email: yup
         .string()
         .email('آدرس ایمیل معتبر نیست')
