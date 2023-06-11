@@ -1,7 +1,17 @@
 import { AiOutlineEye } from 'react-icons/ai';
 import { BiEditAlt } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
-const Contact = ({ name, mobile, email, photo }) => {
+import { deleteContact } from '../services/contactServices';
+const Contact = ({ name, mobile, email, photo, id }) => {
+    const handleDelete = async (id) => {
+        try {
+            const { data, status } = await deleteContact(id);
+            console.log({ data });
+            console.log({ status });
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <div>
             <div className='bg-MainCurrentline p-5 rounded-lg'>
@@ -35,7 +45,12 @@ const Contact = ({ name, mobile, email, photo }) => {
                             <button className='bg-MainCyan p-3 rounded-md'>
                                 <BiEditAlt />
                             </button>
-                            <button className='bg-MainRed p-3 rounded-md'>
+                            <button
+                                className='bg-MainRed p-3 rounded-md'
+                                onClick={() => {
+                                    handleDelete(id);
+                                }}
+                            >
                                 <BsTrash />
                             </button>
                         </div>

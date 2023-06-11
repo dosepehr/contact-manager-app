@@ -11,3 +11,8 @@ export const postContact = (data) => {
     const url = `${BASE_URL}`;
     return axios.post(url, data);
 };
+
+export const deleteContact = (id) => {
+    const url = `${BASE_URL}/${id}`;
+    return axios.delete(url);
+};
