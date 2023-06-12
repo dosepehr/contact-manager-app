@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5122/contacts';
 
-export const getContacts = () => {
+export const getAllContacts = () => {
     const url = `${BASE_URL}`;
     return axios.get(url);
 };
