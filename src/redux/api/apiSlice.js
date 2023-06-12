@@ -7,7 +7,10 @@ export const apiSlice = createApi({
         getContacts: builder.query({
             query: () => '/contacts',
         }),
+        getContact: builder.query({
+            query:(id)=>`/contacts/${id}`
+        })
     }),
 });
 
-export const { useGetContactsQuery } = apiSlice;
+export const { useGetContactsQuery,useGetContactQuery } = apiSlice;

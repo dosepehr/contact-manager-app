@@ -1,43 +1,22 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getContact } from '../services/contactServices';
-import { useContext } from 'react';
-import mainContext from '../context';
-import { getgroup } from '../services/groupsServices';
 import Spinner from './Spinner';
+import { useGetContactQuery } from '../redux/api/apiSlice';
 const ContactDetails = () => {
     const { id } = useParams();
-    const { contact, setContact, group, setGroup, loading, setLoading } =
-        useContext(mainContext);
-    useEffect(() => {
-        const fetchContact = async () => {
-            try {
-                setLoading(true);
-                const { data } = await getContact(id);
-                const { data: contactGroup } = await getgroup(+data.group);
-                setGroup(contactGroup);
-                setContact(data);
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchContact();
-    }, [id, setContact, setGroup]);
+    const { data, isLoading } = useGetContactQuery(id);
     return (
         <div>
             <p className='text-MainCyan text-xl text-center font-bold mb-4'>
                 اطلاعات مخاطب
             </p>
-            {loading ? (
+            {isLoading ? (
                 <Spinner />
             ) : (
-                Object.keys(contact).length > 0 && (
+                Object.keys(data).length > 0 && (
                     <div className='mx-auto px-5 md:px-14'>
                         <div className='bg-MainCurrentline flex flex-col md:flex-row items-center p-10 rounded-md'>
                             <img
-                                src={contact.photo || `default.png`}
+                                src={data.photo || `default.png`}
                                 className='w-64 aspect-square rounded-md border border-MainPurple '
                             />
                             <div className='w-full md:pr-10 max-w-lg lg:max-w-3xl mx-auto '>
@@ -47,7 +26,7 @@ const ContactDetails = () => {
                                             نام و نام خانوادگی:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {contact.name}
+                                            {data.name}
                                         </p>
                                     </div>
                                     <div className='flex w-full items-center justify-center'>
@@ -55,7 +34,7 @@ const ContactDetails = () => {
                                             شماره موبایل:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {contact.mobile}
+                                            {data.mobile}
                                         </p>
                                     </div>
                                     <div className='flex w-full items-center justify-center'>
@@ -63,7 +42,7 @@ const ContactDetails = () => {
                                             ایمیل:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {contact.email}
+                                            {data.email}
                                         </p>
                                     </div>
                                     <div className='flex w-full items-center justify-center'>
@@ -71,7 +50,7 @@ const ContactDetails = () => {
                                             شغل:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {contact.job}
+                                            {data.job}
                                         </p>
                                     </div>
                                     <div className='flex w-full items-center justify-center'>
@@ -79,7 +58,7 @@ const ContactDetails = () => {
                                             گروه:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {group.name}
+                                            {/* {group.name} */}
                                         </p>
                                     </div>
                                 </div>
