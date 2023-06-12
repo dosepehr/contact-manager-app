@@ -55,12 +55,18 @@ const Contact = ({ contact }) => {
                             </div>
                         </div>
                         <div className='flex flex-col space-y-2 mr-2'>
-                            <Link className='bg-MainOrange p-3 rounded-md' to={`/contact/${id}`} >
+                            <Link
+                                className='bg-MainOrange p-3 rounded-md'
+                                to={`/contact/${id}`}
+                            >
                                 <AiOutlineEye />
                             </Link>
-                            <button className='bg-MainCyan p-3 rounded-md'>
+                            <Link
+                                to={`contact/edit/${id}`}
+                                className='bg-MainCyan p-3 rounded-md'
+                            >
                                 <BiEditAlt />
-                            </button>
+                            </Link>
                             <button
                                 className='bg-MainRed p-3 rounded-md'
                                 onClick={() => {
