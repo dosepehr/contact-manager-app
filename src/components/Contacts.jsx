@@ -12,7 +12,7 @@ const Contacts = () => {
             setContacts(data);
         };
         fetchContacts();
-    }, []);
+    }, [contacts]);
     return (
         <div className='mx-auto px-5 sm:px-10 md:px-14 lg:px-28'>
             <Link

@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import contactsSchema from '../validations/contactsSchema';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getContact, putContact } from '../services/contactServices';
 import { toast } from 'react-toastify';
+import { getAllgroups } from '../services/groupsServices';
 
 const EditContact = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [contact, setContact] = useState({});
+    const [groups, setGroups] = useState([]);
     useEffect(() => {
         const fetchContact = async () => {
             const { data } = await getContact(id);
             setContact(data);
         };
+        const fetchAllGroups = async () => {
+            const { data } = await getAllgroups();
+            setGroups(data);
+        };
         fetchContact();
-    }, [id]);
+        fetchAllGroups();
+    }, []);
     const updataContact = async (values) => {
         try {
             const { status } = await putContact(values, +id);
@@ -27,28 +34,6 @@ const EditContact = () => {
             console.log(err);
         }
     };
-    const groups = [
-        {
-            id: '1',
-            name: 'همکار',
-        },
-        {
-            id: '2',
-            name: 'دوست',
-        },
-        {
-            id: '3',
-            name: 'فامیل',
-        },
-        {
-            id: '4',
-            name: 'سرویس',
-        },
-        {
-            id: '5',
-            name: 'آشنا',
-        },
-    ];
     return (
         <div className='mx-auto sm:px-10 md:px-14 lg:px-28 relative'>
             <img
@@ -123,15 +108,16 @@ const EditContact = () => {
                                 <option className='text-white'>
                                     انتخاب گروه
                                 </option>
-                                {groups.map((group) => (
-                                    <option
-                                        key={group.id}
-                                        value={group.id}
-                                        className='text-white'
-                                    >
-                                        {group.name}
-                                    </option>
-                                ))}
+                                {groups.length > 1 &&
+                                    groups.map((group) => (
+                                        <option
+                                            key={group.id}
+                                            value={group.id}
+                                            className='text-white'
+                                        >
+                                            {group.name}
+                                        </option>
+                                    ))}
                             </Field>
                             <span className='text-MainRed'>
                                 <ErrorMessage name='group' />
@@ -143,9 +129,12 @@ const EditContact = () => {
                                 >
                                     ویرایش مخاطب
                                 </button>
-                                <button className='bg-MainComment p-2 rounded-md'>
+                                <Link
+                                    className='bg-MainComment p-2 rounded-md'
+                                    to='/'
+                                >
                                     انصراف
-                                </button>
+                                </Link>
                             </div>
                         </Form>
                     </Formik>
