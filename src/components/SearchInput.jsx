@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
+import mainContext from '../context';
 
 const SearchInput = () => {
+    const { setQuery } = useContext(mainContext);
     return (
         <>
             <input
+                onChange={(e) => setQuery(e.target.value)}
                 type='text'
                 name=''
                 id=''

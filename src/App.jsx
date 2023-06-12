@@ -10,6 +10,8 @@ function App() {
     const [contact, setContact] = useState([]);
     const [group, setGroup] = useState({});
     const [loading, setLoading] = useState(false);
+    const [query, setQuery] = useState('');
+    const [filteredContacts, setFilteredContacts] = useState([]);
     useEffect(() => {
         const fetchContacts = async () => {
             try {
@@ -37,6 +39,13 @@ function App() {
         fetchGroups();
     }, []);
 
+    useEffect(() => {
+        setFilteredContacts(
+            contacts.filter((contact) =>
+                contact.name.toLowerCase().includes(query.toLowerCase())
+            )
+        );
+    }, [query, contacts]);
     return (
         <>
             <mainContext.Provider
@@ -51,6 +60,10 @@ function App() {
                     group,
                     loading,
                     setLoading,
+                    query,
+                    setQuery,
+                    filteredContacts,
+                    setFilteredContacts,
                 }}
             >
                 <Navbar />

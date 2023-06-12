@@ -4,7 +4,7 @@ import { Contact, Spinner } from './';
 import mainContext from '../context';
 
 const Contacts = () => {
-    const { contacts, loading } = useContext(mainContext);
+    const { contacts, loading, filteredContacts } = useContext(mainContext);
     return (
         <div className='mx-auto px-5 sm:px-10 md:px-14 lg:px-28'>
             <Link
@@ -17,8 +17,8 @@ const Contacts = () => {
                 <Spinner />
             ) : (
                 <div className='grid md:grid-cols-2 gap-4 grid-cols-1 mt-5'>
-                    {contacts.length > 0 &&
-                        contacts.map((contact) => (
+                    {filteredContacts.length > 0 &&
+                        filteredContacts.map((contact) => (
                             <Contact contact={contact} key={contact.id} />
                         ))}
                 </div>

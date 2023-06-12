@@ -11,6 +11,10 @@ const mainContext = createContext({
     group: {},
     loading: false,
     setLoading: () => {},
+    query: '',
+    setQuery: () => {},
+    filteredContacts: [],
+    setFilteredContacts: () => {},
 });
 
 export default mainContext;
