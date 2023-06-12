@@ -5,6 +5,7 @@ import {
     ContactDetails,
     Contacts,
     EditContact,
+    Groups,
 } from '../components';
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: 'contact/edit/:id',
                 element: <EditContact />,
+            },
+            {
+                path: 'groups',
+                element: <Groups />,
             },
         ],
     },

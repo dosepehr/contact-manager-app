@@ -4,15 +4,23 @@ import { Contact, Spinner } from './';
 import mainContext from '../context';
 
 const Contacts = () => {
-    const { contacts, loading, filteredContacts } = useContext(mainContext);
+    const { loading, filteredContacts } = useContext(mainContext);
     return (
         <div className='mx-auto px-5 sm:px-10 md:px-14 lg:px-28'>
-            <Link
-                className='bg-MainPink px-2 py-3 mx-auto block w-fit rounded-md'
-                to='contact/add'
-            >
-                ساخت مخاطب جدید
-            </Link>
+            <div className='flex'>
+                <Link
+                    className='bg-MainPink px-2 py-3 mx-auto block w-fit rounded-md'
+                    to='contact/add'
+                >
+                    ساخت مخاطب جدید
+                </Link>
+                <Link
+                    className='bg-MainPink px-2 py-3 mx-auto block w-fit rounded-md mr-5'
+                    to='groups'
+                >
+                    مشاهده گروه ها
+                </Link>
+            </div>
             {loading ? (
                 <Spinner />
             ) : (
