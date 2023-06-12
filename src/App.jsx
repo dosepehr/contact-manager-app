@@ -9,21 +9,28 @@ function App() {
     const [groups, setGroups] = useState([]);
     const [contact, setContact] = useState([]);
     const [group, setGroup] = useState({});
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         const fetchContacts = async () => {
             try {
+                setLoading(true);
                 const { data } = await getAllContacts();
                 setContacts(data);
             } catch (err) {
                 console.log(err);
+            } finally {
+                setLoading(false);
             }
         };
         const fetchGroups = async () => {
             try {
+                setLoading(true);
                 const { data } = await getAllgroups();
                 setGroups(data);
             } catch (err) {
                 console.log(err);
+            } finally {
+                setLoading(false);
             }
         };
         fetchContacts();
@@ -42,7 +49,8 @@ function App() {
                     contact,
                     setGroup,
                     group,
-
+                    loading,
+                    setLoading,
                 }}
             >
                 <Navbar />

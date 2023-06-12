@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Contact } from './';
+import { Contact, Spinner } from './';
 import mainContext from '../context';
 
 const Contacts = () => {
-    const { contacts } = useContext(mainContext);
+    const { contacts, loading } = useContext(mainContext);
     return (
         <div className='mx-auto px-5 sm:px-10 md:px-14 lg:px-28'>
             <Link
@@ -13,12 +13,16 @@ const Contacts = () => {
             >
                 ساخت مخاطب جدید
             </Link>
-            <div className='grid md:grid-cols-2 gap-4 grid-cols-1 mt-5'>
-                {contacts.length > 0 &&
-                    contacts.map((contact) => (
-                        <Contact contact={contact} key={contact.id} />
-                    ))}
-            </div>
+            {loading ? (
+                <Spinner />
+            ) : (
+                <div className='grid md:grid-cols-2 gap-4 grid-cols-1 mt-5'>
+                    {contacts.length > 0 &&
+                        contacts.map((contact) => (
+                            <Contact contact={contact} key={contact.id} />
+                        ))}
+                </div>
+            )}
         </div>
     );
 };

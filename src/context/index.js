@@ -9,6 +9,8 @@ const mainContext = createContext({
     contact: {},
     setGroup: () => {},
     group: {},
+    loading: false,
+    setLoading: () => {},
 });
 
 export default mainContext;

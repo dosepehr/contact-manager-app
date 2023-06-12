@@ -4,3 +4,4 @@ export { default as Navbar } from './Navbar';
 export { default as AddContact } from './AddContact';
 export { default as ContactDetails } from './ContactDetails';
 export { default as EditContact } from './EditContact';
+export { default as Spinner } from './Spinner';
