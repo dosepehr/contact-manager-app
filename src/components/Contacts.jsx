@@ -1,10 +1,8 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Contact, Spinner } from './';
-import mainContext from '../context';
-
+import { useGetContactsQuery } from '../redux/api/apiSlice';
 const Contacts = () => {
-    const { loading, filteredContacts } = useContext(mainContext);
+    const { data, isLoading } = useGetContactsQuery();
     return (
         <div className='mx-auto px-5 sm:px-10 md:px-14 lg:px-28'>
             <div className='flex'>
@@ -21,12 +19,12 @@ const Contacts = () => {
                     مشاهده گروه ها
                 </Link>
             </div>
-            {loading ? (
+            {isLoading ? (
                 <Spinner />
             ) : (
                 <div className='grid md:grid-cols-2 gap-4 grid-cols-1 mt-5'>
-                    {filteredContacts.length > 0 &&
-                        filteredContacts.map((contact) => (
+                    {data.length > 0 &&
+                        data.map((contact) => (
                             <Contact contact={contact} key={contact.id} />
                         ))}
                 </div>
