@@ -21,3 +21,7 @@ export const deleteContact = (id) => {
     const url = `${BASE_URL}/${id}`;
     return axios.delete(url);
 };
+export const putContact = (data, id) => {
+    const url = `${BASE_URL}/${id}`;
+    return axios.put(url, data);
+};

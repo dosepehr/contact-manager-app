@@ -6,7 +6,27 @@ import { getContact, putContact } from '../services/contactServices';
 import { toast } from 'react-toastify';
 
 const EditContact = () => {
-
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const [contact, setContact] = useState({});
+    useEffect(() => {
+        const fetchContact = async () => {
+            const { data } = await getContact(id);
+            setContact(data);
+        };
+        fetchContact();
+    }, [id]);
+    const updataContact = async (values) => {
+        try {
+            const { status } = await putContact(values, +id);
+            if (status === 200) {
+                navigate('/');
+                toast.success(`مخاطب ویرایش شد!`);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
     const groups = [
         {
             id: '1',
@@ -42,7 +62,10 @@ const EditContact = () => {
             <div className='px-10 md:w-1/2 xl:w-1/3 mt-10 '>
                 {Object.keys(contact).length > 0 && (
                     <Formik
-                       
+                        initialValues={contact}
+                        onSubmit={(values) => {
+                            updataContact(values);
+                        }}
                         validationSchema={contactsSchema}
                     >
                         <Form className='w-full space-y-3'>
