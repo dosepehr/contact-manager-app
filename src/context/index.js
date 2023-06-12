@@ -7,6 +7,8 @@ const mainContext = createContext({
     groups: [],
     setContact: () => {},
     contact: {},
+    setGroup: () => {},
+    group: {},
 });
 
 export default mainContext;

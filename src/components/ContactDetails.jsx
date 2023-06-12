@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getContact } from '../services/contactServices';
+import { useContext } from 'react';
+import mainContext from '../context';
+import { getgroup } from '../services/groupsServices';
 const ContactDetails = () => {
     const { id } = useParams();
-    const [contact, setContact] = useState({});
+    const { contact, setContact, group, setGroup } = useContext(mainContext);
     useEffect(() => {
         const fetchContact = async () => {
             const { data } = await getContact(id);
             setContact(data);
+            const { data: contactGroup } = await getgroup(+data.group);
+            setGroup(contactGroup);
         };
-
         fetchContact();
     }, [id]);
     return (
@@ -62,9 +66,11 @@ const ContactDetails = () => {
                                     <p className='ml-2 text-MainCurrentline'>
                                         گروه:
                                     </p>
-                                    <p className='text-MainCurrentline'>
-                                        {contact.group}
-                                    </p>
+                                    {Object.keys(group).length > 0 && (
+                                        <p className='text-MainCurrentline'>
+                                            {group.name}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>

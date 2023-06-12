@@ -8,6 +8,7 @@ function App() {
     const [contacts, setContacts] = useState([]);
     const [groups, setGroups] = useState([]);
     const [contact, setContact] = useState([]);
+    const [group, setGroup] = useState({});
     useEffect(() => {
         const fetchContacts = async () => {
             try {
@@ -39,6 +40,8 @@ function App() {
                     groups,
                     setContact,
                     contact,
+                    setGroup,
+                    group,
 
                 }}
             >
