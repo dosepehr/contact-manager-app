@@ -2,19 +2,14 @@ import { AiOutlineEye } from 'react-icons/ai';
 import { BiEditAlt } from 'react-icons/bi';
 import { BsTrash } from 'react-icons/bs';
 import { ToastContainer, toast } from 'react-toastify';
-import { deleteContact } from '../services/contactServices';
 import { Link } from 'react-router-dom';
+import { useDeleteContactMutation } from '../redux/api/apiSlice';
 const Contact = ({ contact }) => {
+    const [deleteBlog] = useDeleteContactMutation();
     const { name, mobile, email, photo, id } = contact;
     const handleDelete = async (id) => {
-        try {
-            const { status } = await deleteContact(id);
-            if (status === 200) {
-                toast.success(`مخاطب ${name} با موفقیت حذف شد 🚀`);
-            }
-        } catch (err) {
-            console.log(err);
-        }
+        await deleteBlog(id);
+        toast.success(`مخاطب ${name} با موفقیت حذف شد 🚀`);
     };
     return (
         <div>

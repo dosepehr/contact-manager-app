@@ -3,21 +3,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import contactsSchema from '../validations/contactsSchema';
-import { postContact } from '../services/contactServices';
 import mainContext from '../context';
+import { useAddNewContactMutation } from '../redux/api/apiSlice';
 const AddContact = () => {
     const navigate = useNavigate();
-    const {groups} = useContext(mainContext);
+    const [addNewContact] = useAddNewContactMutation();
+    const { groups } = useContext(mainContext);
     const createContact = async (newContact) => {
-        try {
-            const { status } = await postContact(newContact);
-            if (status === 201) {
-                navigate('/');
-                toast.success(`مخاطب افزوده شد!`);
-            }
-        } catch (err) {
-            console.log(err);
-        }
+        await addNewContact(newContact).unwrap();
+        navigate('/');
+        toast.success(`مخاطب افزوده شد!`);
     };
     return (
         <div className='mx-auto sm:px-10 md:px-14 lg:px-28 relative'>
