@@ -13,11 +13,10 @@ const ContactDetails = () => {
         const fetchContact = async () => {
             try {
                 setLoading(true);
-
                 const { data } = await getContact(id);
                 const { data: contactGroup } = await getgroup(+data.group);
-                setContact(data);
                 setGroup(contactGroup);
+                setContact(data);
             } catch (err) {
                 console.log(err);
             } finally {
