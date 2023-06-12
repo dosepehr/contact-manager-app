@@ -1,32 +1,13 @@
+import { useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import contactsSchema from '../validations/contactsSchema';
 import { postContact } from '../services/contactServices';
-import { useNavigate } from 'react-router-dom';
-import {toast } from 'react-toastify';
+import mainContext from '../context';
 const AddContact = () => {
     const navigate = useNavigate();
-    const groups = [
-        {
-            id: '1',
-            name: 'همکار',
-        },
-        {
-            id: '2',
-            name: 'دوست',
-        },
-        {
-            id: '3',
-            name: 'فامیل',
-        },
-        {
-            id: '4',
-            name: 'سرویس',
-        },
-        {
-            id: '5',
-            name: 'آشنا',
-        },
-    ];
+    const {groups} = useContext(mainContext);
     const createContact = async (newContact) => {
         try {
             const { status } = await postContact(newContact);
