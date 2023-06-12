@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Navbar } from './components';
 import mainContext from './context';
-import { getAllContacts } from './services/contactServices';
 import { getAllgroups } from './services/groupsServices';
 function App() {
     const [contacts, setContacts] = useState([]);
@@ -13,17 +12,7 @@ function App() {
     const [query, setQuery] = useState('');
     const [filteredContacts, setFilteredContacts] = useState([]);
     useEffect(() => {
-        const fetchContacts = async () => {
-            try {
-                setLoading(true);
-                const { data } = await getAllContacts();
-                setContacts(data);
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoading(false);
-            }
-        };
+     
         const fetchGroups = async () => {
             try {
                 setLoading(true);
@@ -35,7 +24,7 @@ function App() {
                 setLoading(false);
             }
         };
-        fetchContacts();
+        // fetchContacts();
         fetchGroups();
     }, []);
 

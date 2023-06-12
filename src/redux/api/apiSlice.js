@@ -8,9 +8,35 @@ export const apiSlice = createApi({
             query: () => '/contacts',
         }),
         getContact: builder.query({
-            query:(id)=>`/contacts/${id}`
-        })
+            query: (id) => `/contacts/${id}`,
+        }),
+        addNewContact: builder.mutation({
+            query: (contactData) => ({
+                url: '/contacts',
+                method: 'POST',
+                body: contactData,
+            }),
+        }),
+        updateContact: builder.mutation({
+            query: (contact) => ({
+                url: `/contacts/${contact.id}`,
+                method: 'PUT',
+                body: contact,
+            }),
+        }),
+        deleteContact: builder.mutation({
+            query: (id) => ({
+                url: `/contacts/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
-export const { useGetContactsQuery,useGetContactQuery } = apiSlice;
+export const {
+    useGetContactsQuery,
+    useGetContactQuery,
+    useAddNewContactMutation,
+    useDeleteContactMutation,
+    useUpdateContactMutation,
+} = apiSlice;
