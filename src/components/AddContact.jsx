@@ -1,14 +1,15 @@
-import { useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import contactsSchema from '../validations/contactsSchema';
-import mainContext from '../context';
-import { useAddNewContactMutation } from '../redux/api/apiSlice';
+import {
+    useAddNewContactMutation,
+    useGetGroupsQuery,
+} from '../redux/api/apiSlice';
 const AddContact = () => {
     const navigate = useNavigate();
     const [addNewContact] = useAddNewContactMutation();
-    const { groups } = useContext(mainContext);
+    const { data: groups, isLoading } = useGetGroupsQuery();
     const createContact = async (newContact) => {
         await addNewContact(newContact).unwrap();
         navigate('/');
@@ -92,15 +93,16 @@ const AddContact = () => {
                             className='w-full rounded-md bg-MainCurrentline border border-MainPurple p-2 text-white'
                         >
                             <option className='text-white'>انتخاب گروه</option>
-                            {groups.map((group) => (
-                                <option
-                                    key={group.id}
-                                    value={group.id}
-                                    className='text-white'
-                                >
-                                    {group.name}
-                                </option>
-                            ))}
+                            {!isLoading &&
+                                groups.map((group) => (
+                                    <option
+                                        key={group.id}
+                                        value={group.id}
+                                        className='text-white'
+                                    >
+                                        {group.name}
+                                    </option>
+                                ))}
                         </Field>
                         <span className='text-MainRed'>
                             <ErrorMessage name='group' />

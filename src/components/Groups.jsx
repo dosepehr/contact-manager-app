@@ -1,23 +1,24 @@
-import React, { useContext, useState } from 'react';
-import mainContext from '../context';
+import React, { useState } from 'react';
 import Spinner from './Spinner';
-import { deleteGroup, postGroup } from '../services/groupsServices';
 import { ToastContainer, toast } from 'react-toastify';
+import {
+    useAddNewgroupMutation,
+    useDeleteGroupMutation,
+    useGetGroupsQuery,
+} from '../redux/api/apiSlice';
 
 const Groups = () => {
-    const { groups } = useContext(mainContext);
+    const { data: groups, isLoading } = useGetGroupsQuery();
+    const [deleteGroup] = useDeleteGroupMutation();
+    const [addNewGroup] = useAddNewgroupMutation();
     const [groupInfo, setGroupInfo] = useState('');
     const deleteGroupHandler = async (id) => {
-        const { status } = await deleteGroup(id);
-        if (status === 200) {
-            toast.success('گروه حذف شد');
-        }
+        await deleteGroup(id);
+        toast.success('گروه حذف شد');
     };
     const createNewGroup = async (groupName) => {
-        const { status } = await postGroup({ name: groupName });
-        if (status === 201) {
-            toast.success('گروه جدید ساخته شد');
-        }
+        await addNewGroup({ name: groupName }).unwrap();
+        toast.success('گروه جدید ساخته شد');
     };
     return (
         <div>
@@ -36,7 +37,7 @@ const Groups = () => {
             <input
                 type='text'
                 className='border-MainOrange p-2 ml-2'
-                placeholder='نام نویسنده'
+                placeholder='نام گروه'
                 onChange={(e) => setGroupInfo(e.target.value)}
             />
             <button
@@ -45,28 +46,30 @@ const Groups = () => {
                 }}
                 className='bg-MainCyan p-2'
             >
-                ایجاد نویسنده جدید
+                ایجاد گروه جدید
             </button>
-            {groups.length > 0 ? (
-                <div className='space-y-2'>
-                    {groups.map((group) => (
-                        <div key={group.id} className='flex'>
-                            <p className='bg-MainPink text-lg w-fit p-2 ml-2'>
-                                {group.name}
-                            </p>
-                            <button
-                                className='bg-MainCyan p-2'
-                                onClick={() => {
-                                    deleteGroupHandler(group.id);
-                                }}
-                            >
-                                حذف گروه
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            ) : (
+            {isLoading ? (
                 <Spinner />
+            ) : (
+                groups?.length > 0 && (
+                    <div className='space-y-2'>
+                        {groups.map((group) => (
+                            <div key={group.id} className='flex'>
+                                <p className='bg-MainPink text-lg w-fit p-2 ml-2'>
+                                    {group.name}
+                                </p>
+                                <button
+                                    className='bg-MainCyan p-2'
+                                    onClick={() => {
+                                        deleteGroupHandler(group.id);
+                                    }}
+                                >
+                                    حذف گروه
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )
             )}
         </div>
     );

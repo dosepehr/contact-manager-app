@@ -1,20 +1,19 @@
-import { useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import contactsSchema from '../validations/contactsSchema';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import mainContext from '../context';
 import Spinner from './Spinner';
 import {
     useGetContactQuery,
     useUpdateContactMutation,
+    useGetGroupsQuery,
 } from '../redux/api/apiSlice';
 
 const EditContact = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const { groups } = useContext(mainContext);
     const { data: contact, isLoading } = useGetContactQuery(id);
+    const { data: groups } = useGetGroupsQuery();
     const [updateContact] = useUpdateContactMutation();
 
     const updateContactInfo = async (values) => {
@@ -101,7 +100,7 @@ const EditContact = () => {
                                         <option className='text-white'>
                                             انتخاب گروه
                                         </option>
-                                        {groups.length > 1 &&
+                                        {groups?.length > 0 &&
                                             groups.map((group) => (
                                                 <option
                                                     key={group.id}

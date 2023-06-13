@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 import Spinner from './Spinner';
-import { useGetContactQuery } from '../redux/api/apiSlice';
+import { useGetContactQuery, useGetGroupQuery } from '../redux/api/apiSlice';
 const ContactDetails = () => {
     const { id } = useParams();
     const { data, isLoading } = useGetContactQuery(id);
+    const { data: group } = useGetGroupQuery(+data?.group);
     return (
         <div>
             <p className='text-MainCyan text-xl text-center font-bold mb-4'>
@@ -58,7 +59,7 @@ const ContactDetails = () => {
                                             گروه:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {/* {group.name} */}
+                                            {group?.name}
                                         </p>
                                     </div>
                                 </div>

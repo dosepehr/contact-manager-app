@@ -5,10 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useDeleteContactMutation } from '../redux/api/apiSlice';
 const Contact = ({ contact }) => {
-    const [deleteBlog] = useDeleteContactMutation();
+    const [deleteContact] = useDeleteContactMutation();
     const { name, mobile, email, photo, id } = contact;
     const handleDelete = async (id) => {
-        await deleteBlog(id);
+        await deleteContact(id);
         toast.success(`مخاطب ${name} با موفقیت حذف شد 🚀`);
     };
     return (
