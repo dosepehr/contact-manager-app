@@ -30,6 +30,33 @@ export const apiSlice = createApi({
                 method: 'DELETE',
             }),
         }),
+        // groups
+        getGroups: builder.query({
+            query: () => '/groups',
+        }),
+        getGroup: builder.query({
+            query: (id) => `/groups/${id}`,
+        }),
+        addNewgroup: builder.mutation({
+            query: (groupData) => ({
+                url: '/groups',
+                method: 'POST',
+                body: groupData,
+            }),
+        }),
+        updateGroup: builder.mutation({
+            query: (group) => ({
+                url: `/groups/${group.id}`,
+                method: 'PUT',
+                body: group,
+            }),
+        }),
+        deleteGroup: builder.mutation({
+            query: (id) => ({
+                url: `/groups/${id}`,
+                method: 'DELETE',
+            }),
+        }),
     }),
 });
 
@@ -39,4 +66,10 @@ export const {
     useAddNewContactMutation,
     useDeleteContactMutation,
     useUpdateContactMutation,
+
+    useGetGroupQuery,
+    useGetGroupsQuery,
+    useAddNewgroupMutation,
+    useDeleteGroupMutation,
+    useUpdateGroupMutation,
 } = apiSlice;
