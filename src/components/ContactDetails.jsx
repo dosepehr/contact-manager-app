@@ -59,7 +59,7 @@ const ContactDetails = () => {
                                             گروه:
                                         </p>
                                         <p className='text-MainCurrentline'>
-                                            {group?.name}
+                                            {group?.name || 'نامشخص'}
                                         </p>
                                     </div>
                                 </div>
